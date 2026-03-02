@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - بريزم</title>
+    <link rel="stylesheet" href="../hotspot/css/style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        .admin-sidebar {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .admin-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .admin-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .admin-card.active {
+            border-color: var(--primary);
+            background: #f5f3ff;
+        }
+
+        .admin-card h3 {
+            font-size: 14px;
+            margin: 0;
+            margin-top: 10px;
+            color: var(--dark);
+        }
+
+        .admin-card ion-icon {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="liquid-bg"></div>
+
+    <div class="container">
+        <header style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;">
+            <div>
+                <h1 style="font-size: 24px; font-weight: 900;">لوحة القيادة</h1>
+                <p style="font-size: 12px; font-weight: 700; color: var(--secondary);">إدارة شبكة السريع نت</p>
+            </div>
+            <div
+                style="width: 50px; height: 50px; background: white; border-radius: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                <img src="../hotspot/img/logo.png" alt="" style="width: 30px;"
+                    onerror="this.src='https://cdn-icons-png.flaticon.com/512/9027/9027909.png'">
+            </div>
+        </header>
+
+        <!-- Category Tabs -->
+        <div class="admin-sidebar">
+            <div id="card_basic" class="admin-card active" onclick="switchTab('basic')">
+                <ion-icon name="rocket"></ion-icon>
+                <h3>أساسي</h3>
+            </div>
+            <div id="card_ads" class="admin-card" onclick="switchTab('ads')">
+                <ion-icon name="images"></ion-icon>
+                <h3>إعلانات</h3>
+            </div>
+            <div id="card_content" class="admin-card" onclick="switchTab('content')">
+                <ion-icon name="text"></ion-icon>
+                <h3>محتوى</h3>
+            </div>
+            <div id="card_links" class="admin-card" onclick="switchTab('links')">
+                <ion-icon name="link"></ion-icon>
+                <h3>روابط</h3>
+            </div>
+        </div>
+
+        <main class="vibrant-card" style="min-height: 400px;">
+            <div id="saveIndicator"
+                style="display: none; background: #dcfce7; color: #166534; padding: 10px; border-radius: 10px; margin-bottom: 20px; font-weight: 700; text-align: center;">
+                تم الحفظ بنجاح! ✅</div>
+
+            <!-- Basic Tab -->
+            <div id="basic" class="tab-content active">
+                <h2 style="margin-bottom: 20px;">إعدادات الهوية</h2>
+                <div class="prismatic-input-wrap">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 700;">اسم الشبكة</label>
+                    <input type="text" id="adminNetworkName" class="prismatic-input"
+                        style="font-size: 18px; text-align: right;">
+                </div>
+                <div style="background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                        <span style="font-weight: 700;">رسالة ترحيبية</span>
+                        <input type="checkbox" id="showWelcomeToggle" checked
+                            style="accent-color: var(--primary); transform: scale(1.5);">
+                    </label>
+                </div>
+                <div class="prismatic-input-wrap">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 700;">نص الترحيب</label>
+                    <textarea id="welcomeText" class="prismatic-input"
+                        style="font-size: 14px; text-align: right; min-height: 100px;"></textarea>
+                </div>
+            </div>
+
+            <!-- Ads Tab -->
+            <div id="ads" class="tab-content">
+                <div style="background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                        <span style="font-weight: 700;">عرض الإعلانات في البرزما</span>
+                        <input type="checkbox" id="showAdsToggle" checked
+                            style="accent-color: var(--primary); transform: scale(1.5);">
+                    </label>
+                </div>
+
+                <div id="adsList"></div>
+
+                <input type="file" id="globalAdPicker" style="display: none;" accept="image/*"
+                    onchange="handleGlobalFileSelect(this)">
+
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button class="p-btn" style="height: 50px; font-size: 14px; background: var(--dark); flex: 1;"
+                        onclick="document.getElementById('globalAdPicker').click()">
+                        <ion-icon name="image-outline"></ion-icon> إضافة صورة من المعرض
+                    </button>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button onclick="resetToFactory()"
+                        style="background:none; border:none; color:var(--p1); font-size:11px; text-decoration:underline; cursor:pointer;">إعادة
+                        ضبط المصنع (حذف كل الإعدادات)</button>
+                </div>
+            </div>
+
+            <!-- Content Tab -->
+            <div id="content" class="tab-content">
+                <h2 style="margin-bottom: 20px;">نصوص وملاحظات</h2>
+                <div class="prismatic-input-wrap">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 700;">عن الشبكة</label>
+                    <textarea id="aboutNetwork" class="prismatic-input"
+                        style="font-size: 14px; min-height: 80px; text-align: right;"></textarea>
+                </div>
+                <div class="prismatic-input-wrap">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 700;">تنبيهات هامة</label>
+                    <textarea id="generalNotes" class="prismatic-input"
+                        style="font-size: 14px; min-height: 80px; text-align: right;"></textarea>
+                </div>
+                <div class="prismatic-input-wrap">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 700;">قائمة الأسعار</label>
+                    <textarea id="pricingTable" class="prismatic-input"
+                        style="font-size: 14px; min-height: 120px; text-align: right;"></textarea>
+                </div>
+                <!-- Points of Sale -->
+                <div class="prismatic-input-wrap">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 700;">نقاط البيع</label>
+                    <textarea id="posTable" class="prismatic-input" placeholder="اسم النقطة - العنوان - رقم الهاتف"
+                        style="font-size: 14px; min-height: 100px; text-align: right;"></textarea>
+                </div>
+            </div>
+
+            <!-- Links Tab -->
+            <div id="links" class="tab-content">
+                <h2 style="margin-bottom: 20px;">الروابط الخارجية</h2>
+                <div class="prismatic-input-wrap">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 700;">رابط البث المباشر</label>
+                    <input type="text" id="liveStreamLink" class="prismatic-input"
+                        style="font-size: 14px; text-align: left;">
+                </div>
+                <div class="prismatic-input-wrap">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 700;">رابط الاستراحة</label>
+                    <input type="text" id="restAreaLinks" class="prismatic-input"
+                        style="font-size: 14px; text-align: left;">
+                </div>
+                <div class="prismatic-input-wrap">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 700;">واتساب الدعم الفني</label>
+                    <input type="text" id="adminWhatsapp" class="prismatic-input"
+                        style="font-size: 14px; text-align: left;">
+                </div>
+            </div>
+        </main>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="p-btn" onclick="saveSettings()" style="flex: 2;">
+                <ion-icon name="checkmark-done-circle"></ion-icon> حفظ كل التغييرات
+            </button>
+            <button class="p-btn" onclick="window.open('../hotspot/login.html', '_blank')"
+                style="flex: 1; background: var(--p3);">
+                <ion-icon name="eye"></ion-icon> معاينة
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.admin-card').forEach(c => c.classList.remove('active'));
+            document.getElementById('card_' + id).classList.add('active');
+        }
+
+        function handleGlobalFileSelect(input) {
+            const file = input.files[0];
+            if (!file) return;
+            if (file.size > 1.5 * 1024 * 1024) {
+                alert('الصورة كبيرة جداً! يفضل أن تكون أقل من 1.5 ميجابايت لضمان سرعة التحميل.');
+                input.value = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                addNewAdInput(e.target.result);
+                input.value = '';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function addNewAdInput(val = '') {
+            const container = document.getElementById('adsList');
+            const div = document.createElement('div');
+            div.style.cssText = 'position: relative; margin-bottom: 15px; background: white; padding: 10px; border-radius: 18px; border: 1.5px solid #e2e8f0;';
+            const previewId = 'prev_' + Math.random().toString(36).substr(2, 9);
+
+            div.innerHTML = `
+                <div style="position: relative; border-radius: 12px; overflow: hidden;">
+                    <img id="${previewId}" src="${getCorrectPath(val)}" style="width: 100%; height: 130px; object-fit: cover;">
+                    <input type="hidden" class="ad-url-input" value="${val}">
+                    <button onclick="this.parentElement.parentElement.remove()" style="position: absolute; top: 8px; right: 8px; background: rgba(239, 68, 68, 0.9); border: none; border-radius: 10px; width: 32px; height: 32px; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                        <ion-icon name="trash"></ion-icon>
+                    </button>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function getCorrectPath(val) {
+            if (!val) return 'https://placehold.co/600x400?text=No+Image';
+            if (val.startsWith('http') || val.startsWith('data:')) return val;
+            return '../hotspot/' + val;
+        }
+
+        function resetToFactory() {
+            if (confirm('تنبيه: سيتم حذف جميع إعدادات الشبكة والعودة للوضع الأصلي. هل أنت متأكد؟')) {
+                localStorage.removeItem('network_settings');
+                location.reload();
+            }
+        }
+
+        function saveSettings() {
+            try {
+                const settings = {
+                    networkName: document.getElementById('adminNetworkName').value,
+                    showWelcome: document.getElementById('showWelcomeToggle').checked,
+                    welcomeText: document.getElementById('welcomeText').value,
+                    ads: Array.from(document.querySelectorAll('.ad-url-input')).map(i => i.value),
+                    showAds: document.getElementById('showAdsToggle').checked,
+                    about: document.getElementById('aboutNetwork').value,
+                    liveStream: document.getElementById('liveStreamLink').value,
+                    restArea: document.getElementById('restAreaLinks').value,
+                    pricing: document.getElementById('pricingTable').value,
+                    pos: document.getElementById('posTable').value,
+                    notes: document.getElementById('generalNotes').value,
+                    whatsapp: document.getElementById('adminWhatsapp').value
+                };
+                const json = JSON.stringify(settings);
+                const sizeKB = Math.round((json.length * 2) / 1024);
+                if (sizeKB > 4500) { alert('تنبيه: حجم البيانات كبير جداً، يرجى تقليل حجم الصور.'); return; }
+                localStorage.setItem('network_settings', json);
+                updateStorageIndicator();
+                const si = document.getElementById('saveIndicator');
+                si.style.display = 'block';
+                setTimeout(() => si.style.display = 'none', 2000);
+            } catch (e) { alert('خطأ في الحفظ: قد تكون المساحة ممتلئة.'); }
+        }
+
+        function updateStorageIndicator() {
+            const saved = localStorage.getItem('network_settings') || '';
+            const sizeKB = Math.round((saved.length * 2) / 1024);
+            const percent = Math.min(100, Math.round((sizeKB / 5000) * 100));
+            const color = percent > 80 ? '#ef4444' : (percent > 50 ? '#f59e0b' : '#10b981');
+            let info = document.getElementById('storageInfo');
+            if (!info) {
+                info = document.createElement('div');
+                info.id = 'storageInfo';
+                info.style.cssText = 'font-size:10px; color:#64748b; margin-top:5px; text-align:center;';
+                document.getElementById('saveIndicator').parentElement.appendChild(info);
+            }
+            info.innerHTML = `تم استهلاك <span style="color:${color}; font-weight:bold;">${percent}%</span> من المساحة (${sizeKB}KB / 5MB)`;
+        }
+
+        function setupDebugToggle() {
+            let clicks = 0;
+            const h1 = document.querySelector('h1');
+            if (h1) h1.onclick = () => { if (++clicks === 5) { alert('DEBUG: Storage Ready'); clicks = 0; } };
+        }
+
+        window.onload = () => {
+            const saved = localStorage.getItem('network_settings');
+            if (saved) {
+                const s = JSON.parse(saved);
+                document.getElementById('adminNetworkName').value = s.networkName || '';
+                document.getElementById('showWelcomeToggle').checked = s.showWelcome !== false;
+                document.getElementById('welcomeText').value = s.welcomeText || '';
+                document.getElementById('showAdsToggle').checked = s.showAds !== false;
+                if (s.ads && s.ads.length > 0) s.ads.forEach(url => addNewAdInput(url));
+                document.getElementById('aboutNetwork').value = s.about || '';
+                document.getElementById('liveStreamLink').value = s.liveStream || '';
+                document.getElementById('restAreaLinks').value = s.restArea || '';
+                document.getElementById('pricingTable').value = s.pricing || '';
+                document.getElementById('posTable').value = s.pos || '';
+                document.getElementById('generalNotes').value = s.notes || '';
+                document.getElementById('adminWhatsapp').value = s.whatsapp || '';
+            } else {
+                addNewAdInput('https://images.unsplash.com/photo-1596627689196-1c0eb093cb4a'); // رمضان
+                addNewAdInput('https://images.unsplash.com/photo-1555421689-d6402be969eb'); // سحور وجو رمضاني
+                addNewAdInput('https://images.unsplash.com/photo-1550745165-9bc0b252726f'); // تقنية وسرعة
+            }
+            updateStorageIndicator();
+            setupDebugToggle();
+        };
+    </script>
+</body>
+
+</html>
