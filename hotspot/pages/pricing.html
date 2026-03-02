@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>باقات السرعة - السريع نت</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <div class="liquid-bg"></div>
+    <div class="container" style="padding-bottom: 100px;">
+        <header class="reveal" style="text-align: center; margin-bottom: 30px;">
+            <h1 style="font-size: 28px; font-weight: 900; color: var(--dark);">باقات السرعة</h1>
+            <p style="color: var(--secondary); font-weight: 700;">اختر السرعة التي تناسب احتياجك</p>
+        </header>
+
+        <div class="widget-grid reveal" style="grid-template-columns: 1fr; gap: 15px;">
+            <!-- Gamer Plan -->
+            <div class="vibrant-card pricing-card" onclick="selectPlan(this, 'باقة الجيمرز', '2 ميجا')"
+                style="padding: 20px; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div
+                        style="width: 50px; height: 50px; background: #fee2e2; border-radius: 15px; display: flex; align-items: center; justify-content: center;">
+                        <ion-icon name="game-controller" style="font-size: 24px; color: #ef4444;"></ion-icon>
+                    </div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 16px;">السرعة المتوسطة </div>
+                        <div style="font-size: 12px; color: var(--text-muted);">بينج منخفض + سرعة عالية</div>
+                    </div>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-weight: 900; color: var(--primary);">2 ميجا</div>
+                </div>
+            </div>
+
+            <!-- Streamer Plan -->
+            <div class="vibrant-card pricing-card" onclick="selectPlan(this, 'باقة الستريمر', '4 ميجا')"
+                style="padding: 20px; display: flex; align-items: center; justify-content: space-between; border-color: var(--p3);">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div
+                        style="width: 50px; height: 50px; background: #e0e7ff; border-radius: 15px; display: flex; align-items: center; justify-content: center;">
+                        <ion-icon name="videocam" style="font-size: 24px; color: #6366f1;"></ion-icon>
+                    </div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 16px;">السرعة العالية </div>
+                        <div style="font-size: 12px; color: var(--text-muted);">تحميل مفتوح لليوتيوب</div>
+                    </div>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-weight: 900; color: var(--primary);">4 ميجا</div>
+                </div>
+            </div>
+
+            <!-- Browse Plan -->
+            <div class="vibrant-card pricing-card" onclick="selectPlan(this, 'باقة التصفح', '1 ميجا')"
+                style="padding: 20px; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div
+                        style="width: 50px; height: 50px; background: #dcfce7; border-radius: 15px; display: flex; align-items: center; justify-content: center;">
+                        <ion-icon name="globe" style="font-size: 24px; color: #22c55e;"></ion-icon>
+                    </div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 16px;">السرعة العادية</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">اقتصادية ومناسبة للجميع</div>
+                    </div>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-weight: 900; color: var(--primary);">1 ميجا</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speed Test -->
+        <div class="vibrant-card reveal" style="margin-top: 20px; text-align: center; padding: 20px;">
+            <h3 style="font-size: 16px; margin-bottom: 10px;">هل تريد قياس سرعتك الحالية؟</h3>
+            <a href="https://fast.com/ar/" target="_blank" class="p-btn" style="background: black; color: #22c55e;">
+                <ion-icon name="speedometer"></ion-icon>
+                قياس السرعة (Fast.com)
+            </a>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center; color: var(--text-muted); font-size: 12px;">
+            * السرعة تعتمد على نوع الكرت الذي تقوم بشراؤه من نقاط البيع
+        </div>
+
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="../login.html">
+            <ion-icon name="home-outline"></ion-icon>
+            <span>الرئيسية</span>
+        </a>
+        <a href="pricing.html" class="active">
+            <ion-icon name="speedometer"></ion-icon>
+            <span>السرعات</span>
+        </a>
+        <a href="games.html">
+            <ion-icon name="game-controller-outline"></ion-icon>
+            <span>ترفيه</span>
+        </a>
+        <a href="contact.html">
+            <ion-icon name="call-outline"></ion-icon>
+            <span>دعم</span>
+        </a>
+    </nav>
+
+    <script>
+        function selectPlan(card, name, speed) {
+            // Remove active class from all
+            document.querySelectorAll('.pricing-card').forEach(c => c.classList.remove('selected'));
+            // Add to clicked
+            card.classList.add('selected');
+
+            // Show Alert
+            Swal.fire({
+                title: name,
+                text: `هل تريد تفعيل سرعة ${speed}؟`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'نعم، تفعيل',
+                cancelButtonText: 'إلغاء',
+                confirmButtonColor: 'var(--p1)'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'مطلوب كرت تفعيل',
+                        text: 'لتفعيل هذه الباقة، يجب عليك شراء كرت خاص بها من أقرب نقطة بيع.',
+                        icon: 'info',
+                        confirmButtonText: 'حسناً فهمت',
+                        confirmButtonColor: 'var(--dark)'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

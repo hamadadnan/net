@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تم تسجيل الخروج</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <meta http-equiv="refresh" content="10;url=login.html">
+</head>
+
+<body>
+    <!-- Animated Liquid Background -->
+    <div class="liquid-bg" id="liquidBg"></div>
+    <div class="blob" style="top: 0; left: 0; background: var(--p1);"></div>
+    <div class="blob" style="bottom: 0; right: 0; background: var(--p2); animation-delay: -5s;"></div>
+
+    <div class="container"
+        style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center; padding-bottom: 120px;">
+
+        <div class="vibrant-card reveal" style="text-align: center; padding: 40px 20px;">
+            <div
+                style="width: 80px; height: 80px; background: #e0f2fe; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                <ion-icon name="checkmark-done-outline" style="font-size: 40px; color: var(--p1);"></ion-icon>
+            </div>
+
+            <h1 style="font-size: 28px; font-weight: 900; color: var(--dark); margin-bottom: 10px;">تم تسجيل الخروج</h1>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">شكراً لاستخدامك شبكة السريع نت.<br>نأمل أن نراك
+                قريباً!</p>
+
+            <a href="login.html" class="p-btn">
+                <ion-icon name="log-in-outline"></ion-icon>
+                تسجيل دخول جديد
+            </a>
+
+            <p style="margin-top: 20px; font-size: 12px; color: var(--text-muted);">سيتم تحويلك للصفحة الرئيسية
+                تلقائياً...</p>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="login.html">
+            <ion-icon name="home-outline"></ion-icon>
+            <span>الرئيسية</span>
+        </a>
+        <a href="pages/pricing.html">
+            <ion-icon name="speedometer-outline"></ion-icon>
+            <span>السرعات</span>
+        </a>
+        <a href="pages/games.html">
+            <ion-icon name="game-controller-outline"></ion-icon>
+            <span>ترفيه</span>
+        </a>
+        <a href="pages/contact.html">
+            <ion-icon name="call-outline"></ion-icon>
+            <span>دعم</span>
+        </a>
+    </nav>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

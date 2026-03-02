@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>السريع نت - حالة الاتصال</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <meta http-equiv="refresh" content="60">
+</head>
+
+<body>
+    <!-- Animated Liquid Background -->
+    <div class="liquid-bg" id="liquidBg"></div>
+    <div class="blob" style="top: 0; left: 0; background: var(--p1);"></div>
+    <div class="blob" style="bottom: 0; right: 0; background: var(--p3); animation-delay: -5s;"></div>
+
+    <div class="container" style="padding-bottom: 120px;">
+        <!-- Header -->
+        <header class="reveal" style="text-align: center; margin-bottom: 30px;">
+            <!-- Floating Hero Image with Neon Text -->
+            <div class="hero-wrapper" style="width: 100px;">
+                <img src="img/hero.png" alt="Logo"
+                    style="width: 100%; filter: drop-shadow(0 8px 16px rgba(56, 189, 248, 0.3));">
+                <div class="hero-text-overlay" style="font-size: 14px; bottom: 5px;">السريع نت</div>
+            </div>
+
+            <h1 style="font-size: 24px; font-weight: 900; color: var(--dark); margin-bottom: 5px;">أنت متصل الآن</h1>
+            <p style="font-size: 14px; color: var(--p3); font-weight: 700;">$(username)</p>
+        </header>
+
+        <!-- Status Cards -->
+        <div class="vibrant-card reveal" style="animation-delay: 0.1s; padding: 25px;">
+            <div class="widget-grid" style="grid-template-columns: 1fr 1fr;">
+                <!-- Time Left -->
+                <div class="widget">
+                    <div class="widget-icon"><ion-icon name="hourglass-outline" style="color: var(--p1);"></ion-icon>
+                    </div>
+                    <div class="widget-title">الوقت المتبقي</div>
+                    <div class="widget-value" style="font-size: 18px;">$(session-time-left)</div>
+                    <div style="font-size: 10px; color: var(--text-muted);">من الصلاحية الحالية</div>
+                </div>
+
+                <!-- Quota Left -->
+                <div class="widget">
+                    <div class="widget-icon"><ion-icon name="pie-chart-outline" style="color: var(--p2);"></ion-icon>
+                    </div>
+                    <div class="widget-title">الرصيد المتبقي</div>
+                    <div class="widget-value" style="font-size: 18px;">$(remain-bytes-total-nice)</div>
+                </div>
+            </div>
+
+            <!-- Detailed Stats -->
+            <div style="margin-top: 20px; border-top: 2px dashed #eee; padding-top: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: var(--text-muted); font-size: 13px;">تم تحميل:</span>
+                    <span style="font-weight: 800; color: var(--dark);">$(bytes-out-nice)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: var(--text-muted); font-size: 13px;">تم رفع:</span>
+                    <span style="font-weight: 800; color: var(--dark);">$(bytes-in-nice)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--text-muted); font-size: 13px;">مدة الجلسة:</span>
+                    <span style="font-weight: 800; color: var(--p4);">$(uptime)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Details -->
+        <div class="vibrant-card reveal"
+            style="margin-top: 15px; animation-delay: 0.2s; background: rgba(255,255,255,0.5);">
+            <div
+                style="display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted);">
+                <span>IP Address: $(ip)</span>
+                <span>MAC: $(mac)</span>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="reveal" style="margin-top: 25px; animation-delay: 0.3s;">
+            <form action="$(link-logout)" name="logout" method="post">
+                <input type="hidden" name="erase-cookie" value="on">
+                <button type="submit" class="p-btn"
+                    style="background: linear-gradient(135deg, #FF6B6B, #EE5253); box-shadow: 0 10px 20px -5px rgba(238, 82, 83, 0.4);">
+                    <ion-icon name="power-outline"></ion-icon>
+                    تسجيل الخروج
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="login.html">
+            <ion-icon name="home-outline"></ion-icon>
+            <span>الرئيسية</span>
+        </a>
+        <a href="pages/pricing.html">
+            <ion-icon name="speedometer-outline"></ion-icon>
+            <span>السرعات</span>
+        </a>
+        <a href="pages/games.html">
+            <ion-icon name="game-controller-outline"></ion-icon>
+            <span>ترفيه</span>
+        </a>
+        <a href="pages/contact.html">
+            <ion-icon name="call-outline"></ion-icon>
+            <span>دعم</span>
+        </a>
+    </nav>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
